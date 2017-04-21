@@ -1,0 +1,83 @@
+public void createQuestionAnswrForTV() {
+		// initializing question objects containing questions for qSeinfeld and
+		// qSeinfeld2
+		Questions qSeinfeld = new Questions("Who is Jerry Seinfeld's archenemy?", "Newman");
+		Questions qSeinfeld2 = new Questions("What is the name of the male bra which Kramer and Frank Costanza design?",
+				"Manssiere");
+
+		// questions for qTWD and qTWD2
+		Questions qTWD = new Questions("In what season of The Walking Dead does The Governor first appear?",
+				"Season 3");
+		Questions qTWD2 = new Questions("What is the name of Neegan's baseball bat?", "Lucille");
+
+		// initializing question objects containing questions for qCartoon and
+		// qCartoon2
+		Questions qCartoon = new Questions("Which TV show is about a family of five yellow characters?",
+				"The Simpsons");
+		Questions qCartoon2 = new Questions("Who lives in a pineapple under the sea?", "Spongebob Squarepants");
+
+		// initializing question objects containing questions for qDexter and
+		// qDexter2
+		Questions qDexter = new Questions("What is the name of Dexter Morgan's boat?", "Slice of Life");
+		Questions qDexter2 = new Questions("What occupation does Dexter Morgan hold?",
+				"forensic blood spatter analyst");
+
+		// initializing question objects containing questions for qBB and qBB2
+		Questions qBB = new Questions("What color is the meth that Heisenberg cooks?", "Blue");
+		Questions qBB2 = new Questions("Before Heisenberg cooked meth, what was his job?", "Science Teacher");
+
+		// initializing array of question objects
+		Questions[] TV = { qSeinfeld, qTWD, qCartoon, qDexter, qBB, qSeinfeld2, qTWD2, qCartoon2, qDexter2, qBB2 };
+
+		// initializing array of false answers for qSeinfeld and qSeinfeld2
+		String[] seinfeldFA = { "Kramer", "The Soup Nazi", "Banyo" };
+		String[] seinfeldFA2 = { "Bruh", "Brassiere", "Man Bra" };
+
+		// initializing array of false answers for qTWD and qTWD2
+		String[] twdFA = { "Season 2", "Season 6", "Season 5" };
+		String[] twdFA2 = { "Bart", "Lewis", "Sue" };
+
+		// initializing array of false answers for qCartoon and qCartoon2
+		String[] cartoonFA = { "Family Guy", "Rick and Morty", "Bob's Burgers" };
+		String[] cartoonFA2 = { "Squarebob Spongepants", "Pantsbob Spongesquare", "Bobsquare Spongepants" };
+
+		// initializing array of false answers for qDexter and qDexter2
+		String[] dexterFA = { "Piece of Cake", "Flying Dutchman", "Bloody Hell"};
+		String[] dexterFA2 = { "Detective", "Psychologist", "Dentist" };
+
+		// initializing array of false answers for qBB and qBB2
+		String[] bbFA = { "Green", "Purple", "Red" };
+		String[] bbFA2 = { "Plumber", "Doctor", "Cop" };
+	}
+
+	
+	public void createQuestionAnswrForVidGames() {
+
+		// initializing question objects containing questions for video game category
+		Questions qHalo = new Questions("Which game stars the character, Master Chief?", "Halo");
+		
+		Questions qGears = new Questions("Which game is a third-person shooter and has guns with chainsaws?", "Gears of War");
+
+		Questions qOverwatch = new Questions("Which game is a team-based multiplayer first-person shooter video game developed by Blizzard Entertainment?", "Overwatch");
+		
+		Questions qCOD = new Questions("Which game is a first-person shooter that focused primarily on WWII?", "Call of Duty");
+		
+		Questions qMario = new Questions("Which game is a platform video game developed by Nintendo and considered the 'greatest game of all time'?", "Super Mario Bros");
+		
+		Questions qLoL = new Questions("Which game is a multiplayer online battle arena video game developed by Riot Games?", "League of Legends");
+		
+		Questions qZelda = new Questions("Which game is a high-fantasy action-adventure video game series developed by Nintendo?", "The Legend of Zelda");
+		
+		Questions qSkyrim = new Questions("Which game is an open world action role-playing video game developed by Bethesda Game Studios?", "The Elder Scrolls V: Skyrim");
+
+		Questions qSmash = new Questions("Which game is a series of crossover fighting games published by Nintendo?", "Super Smash Bros.");
+		
+		Questions qMarioKart = new Questions("Which game is a series of go-kart-style racing video games developed and published by Nintendo?", "Mario Kart");
+
+		// initializing array of question objects
+		Questions[] vidGame = { qHalo, qGears, qOverwatch, qCOD, qMario, qLoL, qZelda, qSkyrim, qSmash, qMarioKart };
+
+		// initializing array of FALSE answers for video game objects
+		String[] vidgameFA = { "Spacewar!", "Adventure", "Pool of Radiance", "Bard's Tale", "Frogger",
+				"Resident Evil", "Oregon Trail", "Donkey Kong", "Dark Souls", "Kirby" };
+	}
