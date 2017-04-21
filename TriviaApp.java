@@ -2,7 +2,7 @@
 // Program:    TriviaApp
 // Created:    Apr 11, 2017
 // Author:     Benjamin Newbold
-//  This is Gage's Branch
+//  This is Ben's Branch
 /**
  * 
  */
