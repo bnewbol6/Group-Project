@@ -2,7 +2,7 @@
 // Program:    TriviaApp
 // Created:    Apr 11, 2017
 // Author:     Benjamin Newbold
-//  This is Ben's Branch
+//
 /**
  * 
  */
@@ -17,6 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -42,12 +46,21 @@ import javax.swing.border.BevelBorder;
  *
  */
 public class TriviaApp extends JFrame {
+	/* Array Lists */
+	static List<Questions> questionList = new LinkedList <>();
+	static List<Questions> sportsList = new ArrayList<> ();
+	static List<Questions> moviesList = new ArrayList<> ();
+	static List<Questions> tvList = new ArrayList<> ();
+	static List<Questions> videoGamesList = new ArrayList<> ();
+	
+	
 	/* Container for all the Screens. */
 	private JPanel contentPane;
 	private String category;
 	private int questionNum = 1;
+	private int score; 
 	private String question;
-	fddsfadsfasdfadsfads
+	
 	/* Start Screen Fields. */
 	private JPanel pnlStartNorth;
 	private JLabel lblStartTitle; 
@@ -107,6 +120,7 @@ public class TriviaApp extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		initializeQuestions();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -117,6 +131,7 @@ public class TriviaApp extends JFrame {
 				}
 			}
 		});
+		System.out.println(moviesList);
 	}
 
 	/**
@@ -694,5 +709,45 @@ public class TriviaApp extends JFrame {
 		createLblHighScoresTitle();
 		createMenuBar();
 	}
-
+	
+	/**
+	 * METHOD void initializeQuestions
+	 */
+	public static void initializeQuestions() {
+		try(Scanner reader = new Scanner(TestingQuestions.class.getResourceAsStream("questions.csv"))){
+			while (reader.hasNext()) {
+				Questions question = getQuestion(reader.nextLine());
+				if (question != null){
+					questionList.add(question);
+				}
+			} 
+		} 
+		for (Questions q : questionList) {
+			if (q.getcategory().equals("Sports")){
+				sportsList.add(q);
+			} else if (q.getcategory().equals("Movies")){
+				moviesList.add(q);
+			} else if (q.getcategory().equals("Video Games")) {
+				videoGamesList.add(q);
+			} else 
+				tvList.add(q);
+		}
+	}
+	
+	/**
+	 * METHOD Questions getQuestion
+	 * @param line
+	 * @return
+	 */
+	private static Questions getQuestion(String nextLine) {
+		
+		String[] line = nextLine.split(",");
+		Questions question = null;
+		try {
+			question = new Questions(line[0], line[1], line[2], line[3], line[4], line[5] );
+		} catch (NumberFormatException | IndexOutOfBoundsException e) {
+			System.err.println(nextLine + ".. cound not be read in as a Question.");
+		}
+		return question;
+	}
 }
