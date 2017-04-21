@@ -47,7 +47,7 @@ public class TriviaApp extends JFrame {
 	private String category;
 	private int questionNum = 1;
 	private String question;
-	
+	fddsfadsfasdfadsfads
 	/* Start Screen Fields. */
 	private JPanel pnlStartNorth;
 	private JLabel lblStartTitle; 
