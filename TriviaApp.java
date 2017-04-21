@@ -60,6 +60,7 @@ public class TriviaApp extends JFrame {
 	private int questionNum = 1;
 	private int score; 
 	private String question;
+	private String questionPart;
 	
 	/* Start Screen Fields. */
 	private JPanel pnlStartNorth;
@@ -366,11 +367,22 @@ public class TriviaApp extends JFrame {
 	 * METHOD void createLblQuestionQuestion
 	 */
 	public void createLblQuestionQuestion() {
-		question = "Q" + questionNum + ": How many cups of sugar does it take to get to the moon?";
+		question = "Q" + questionNum + ": " + getQuestionPart();		
 		lblQuestionQuestion = new JLabel(question);
 		lblQuestionQuestion.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		lblQuestionQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlQuestionNorth.add(lblQuestionQuestion);
+	}
+
+	/**
+	 * METHOD String getQuestionPart
+	 * @return
+	 */
+	public String getQuestionPart() {
+		return category.equals("TV") ? tvList.get(questionNum-1).getQuestion() :
+			category.equals("Movies") ? moviesList.get(questionNum-1).getQuestion() :
+				category.equals("Sports") ? sportsList.get(questionNum-1).getQuestion() :
+					videoGamesList.get(questionNum-1).getQuestion();
 	}
 
 	/**
@@ -390,6 +402,7 @@ public class TriviaApp extends JFrame {
 	 * METHOD void createBtnQuestionAnswer
 	 */
 	public void createBtnQuestionAnswer(JButton buttonName, String answer) {
+		answer = 
 		buttonName = new JButton(answer);
 		buttonName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
