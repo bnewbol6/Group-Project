@@ -2,14 +2,25 @@
 // Program:    TriviaApp
 // Created:    Apr 11, 2017
 // Author:     Benjamin Newbold
-//
+//  This is Gage's Branch
 /**
  * 
  */
-package triviaGame;
+package triviagame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,10 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -40,26 +47,26 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 
+//array lists
+static List questionList = new LinkedList <>();
+static List sportsList = new ArrayList<> ();
+static List moviesList = new ArrayList<> ();
+static List tvList = new ArrayList<> ();
+static List videoGamesList = new ArrayList<> ();
+
 /**
  * CLASS 
  * @author Benjamin Newbold
  *
  */
 public class TriviaApp extends JFrame {
-	/* Array Lists */
-	static List<Questions> questionList = new LinkedList <>();
-	static List<Questions> sportsList = new ArrayList<> ();
-	static List<Questions> moviesList = new ArrayList<> ();
-	static List<Questions> tvList = new ArrayList<> ();
-	static List<Questions> videoGamesList = new ArrayList<> ();
-	
-	
 	/* Container for all the Screens. */
 	private JPanel contentPane;
 	private String category;
 	private int questionNum = 1;
 	private int score; 
 	private String question;
+	private static ArrayList<Player> players = new ArrayList<>();
 	private String questionPart;
 	
 	/* Start Screen Fields. */
@@ -93,7 +100,7 @@ public class TriviaApp extends JFrame {
 	private JButton btnAnswer4;
 	
 	/* Scores Screen Fields. */
-	private JTextField txtBoxScoresName;
+	private static JTextField playerNametxt;
 	private JPanel pnlScoresNorth; 
 	private JLabel lblScoresAskName; 
 	private JPanel pnlScoresCenter;
@@ -117,6 +124,7 @@ public class TriviaApp extends JFrame {
 	private JPanel pnlHighScoresSouth;
 	private JButton btnHighScoresPlay;
 	private JButton btnHighScoresExit;
+	private static int score;
 	/**
 	 * Launch the application.
 	 */
@@ -156,8 +164,8 @@ public class TriviaApp extends JFrame {
 		
 		//addStartScreen();
 		//addCategoriesScreen();
-		//addQuestionsScreen();
-		//addScoresScreen();
+		addQuestionsScreen();
+		addScoresScreen();
 		addHighScoresScreen();
 	}
 
@@ -197,6 +205,35 @@ public class TriviaApp extends JFrame {
 	public void createPnlSharedSouth() {
 		pnlSharedSouth = new JPanel();
 		createBtnSharedHighScores();
+	}
+	public void createPlayerAndAppendToFile() {
+		if (playerNametxt.getText().isEmpty() ) {
+			JOptionPane.showMessageDialog(null, "Please Input Player Name", "Player Name Empty", JOptionPane.ERROR_MESSAGE);
+		} else {
+			
+			Player player = new Player(playerNametxt.getText(), score, category);
+			players.add(player);
+			
+			FileWriter fw = null;
+			BufferedWriter bw = null;
+			PrintWriter pw = null;
+			
+			try {		
+				fw = new FileWriter("HighScores.csv", true);
+				bw = new BufferedWriter(fw);
+				pw = new PrintWriter(bw);
+				
+				for(Player p: players){
+					pw.print(p.toString());
+				}												
+			} catch (IOException e) {
+				System.out.println("File Could Not Be Found");
+			}finally{
+				
+				pw.close();
+			}
+			
+		}
 	}
 
 	/**
@@ -432,6 +469,8 @@ public class TriviaApp extends JFrame {
 		contentPane.add(pnlScoresNorth, BorderLayout.NORTH);
 		contentPane.add(pnlScoresCenter, BorderLayout.CENTER);
 		contentPane.add(pnlScoresSouth, BorderLayout.SOUTH);
+		
+		 
 	}
 
 	/**
@@ -442,14 +481,13 @@ public class TriviaApp extends JFrame {
 		btnScoresExit.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnScoresExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (txtBoxScoresName.getText().isEmpty() ) {
-					JOptionPane.showMessageDialog(null, "Please Input Player Name", "Player Name Empty", JOptionPane.ERROR_MESSAGE);
-				} else {
-					System.exit(0);
-				}
+				createPlayerAndAppendToFile();
+				System.exit(0);
 			}
+			
 		});
 		pnlScoresSouth.add(btnScoresExit);
+		
 	}
 
 	/**
@@ -459,9 +497,10 @@ public class TriviaApp extends JFrame {
 		btnScoresHighScores = new JButton("High Scores");
 		btnScoresHighScores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtBoxScoresName.getText().isEmpty() ) {
+				if (playerNametxt.getText().isEmpty() ) {
 					JOptionPane.showMessageDialog(null, "Please Input Player Name", "Player Name Empty", JOptionPane.ERROR_MESSAGE);
 				} else {
+					createPlayerAndAppendToFile();
 					contentPane.removeAll();
 					addHighScoresScreen();
 					revalidate();
@@ -482,9 +521,10 @@ public class TriviaApp extends JFrame {
 		btnScoresPlayAgain.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnScoresPlayAgain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtBoxScoresName.getText().isEmpty() ) {
+				if (playerNametxt.getText().isEmpty() ) {
 					JOptionPane.showMessageDialog(null, "Please Input Player Name", "Player Name Empty", JOptionPane.ERROR_MESSAGE);
 				} else {
+					createPlayerAndAppendToFile();
 					contentPane.removeAll();
 					addCategoriesScreen();
 					revalidate();
@@ -530,10 +570,10 @@ public class TriviaApp extends JFrame {
 	 * METHOD void createTxtBoxScoresName
 	 */
 	public void createTxtBoxScoresName() {
-		txtBoxScoresName = new JTextField();
-		txtBoxScoresName.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		pnlScoresNorth.add(txtBoxScoresName);
-		txtBoxScoresName.setColumns(10);
+		playerNametxt = new JTextField();
+		playerNametxt.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		pnlScoresNorth.add(playerNametxt);
+		playerNametxt.setColumns(10);
 	}
 
 	/**
@@ -594,6 +634,8 @@ public class TriviaApp extends JFrame {
 				addCategoriesScreen();
 				revalidate();
                 repaint();
+                
+                
 			}
 		});
 		btnHighScoresPlay.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -721,45 +763,45 @@ public class TriviaApp extends JFrame {
 		createLblHighScoresTitle();
 		createMenuBar();
 	}
-	
-	/**
-	 * METHOD void initializeQuestions
-	 */
-	public static void initializeQuestions() {
-		try(Scanner reader = new Scanner(TestingQuestions.class.getResourceAsStream("questions.csv"))){
-			while (reader.hasNext()) {
-				Questions question = getQuestion(reader.nextLine());
-				if (question != null){
-					questionList.add(question);
-				}
-			} 
-		} 
-		for (Questions q : questionList) {
-			if (q.getcategory().equals("Sports")){
-				sportsList.add(q);
-			} else if (q.getcategory().equals("Movies")){
-				moviesList.add(q);
-			} else if (q.getcategory().equals("Video Games")) {
-				videoGamesList.add(q);
-			} else 
-				tvList.add(q);
-		}
-	}
-	
-	/**
-	 * METHOD Questions getQuestion
-	 * @param line
-	 * @return
-	 */
-	private static Questions getQuestion(String nextLine) {
-		
-		String[] line = nextLine.split(",");
-		Questions question = null;
-		try {
-			question = new Questions(line[0], line[1], line[2], line[3], line[4], line[5] );
-		} catch (NumberFormatException | IndexOutOfBoundsException e) {
-			System.err.println(nextLine + ".. cound not be read in as a Question.");
-		}
-		return question;
-	}
+/**
+* METHOD void initializeQuestions
+*/
+public static void initializeQuestions() {
+try(Scanner reader = new Scanner(TestingQuestions.class.getResourceAsStream("questions.csv"))){
+while (reader.hasNext()) {
+Questions question = getQuestion(reader.nextLine());
+if (question != null){
+questionList.add(question);
+}
+}
+}
+for (Questions q : questionList) {
+if (q.getcategory().equals("Sports")){
+sportsList.add(q);
+} else if (q.getcategory().equals("Movies")){
+moviesList.add(q);
+} else if (q.getcategory().equals("Video Games")) {
+videoGamesList.add(q);
+} else
+tvList.add(q);
+}
+}
+
+
+/**		
+ * METHOD Questions getQuestion		
+ * @param line		
+ * @return		
+ */		
+private static Questions getQuestion(String nextLine) {		
+			
+	String[] line = nextLine.split(",");		
+	Questions question = null;		
+	try {		
+		question = new Questions(line[0], line[1], line[2], line[3], line[4], line[5] );		
+	} catch (NumberFormatException | IndexOutOfBoundsException e) {		
+		System.err.println(nextLine + ".. cound not be read in as a Question.");		
+	}		
+	return question;		
+}
 }
