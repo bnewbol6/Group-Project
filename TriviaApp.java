@@ -47,6 +47,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 
+static List questionList = new LinkedList <>();
+static List sportsList = new ArrayList<> ();
+static List moviesList = new ArrayList<> ();
+static List tvList = new ArrayList<> ();
+static List videoGamesList = new ArrayList<> ();
+
 /**
  * CLASS 
  * @author Benjamin Newbold
