@@ -1,4 +1,4 @@
-package main;
+package triviaGame;
 
 import java.util.Scanner;
 
