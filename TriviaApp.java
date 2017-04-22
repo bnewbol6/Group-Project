@@ -67,6 +67,7 @@ public class TriviaApp extends JFrame {
 	private int score; 
 	private String question;
 	private static ArrayList<Player> players = new ArrayList<>();
+	private String questionPart;
 	
 	/* Start Screen Fields. */
 	private JPanel pnlStartNorth;
