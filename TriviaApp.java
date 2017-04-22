@@ -61,7 +61,7 @@ static List videoGamesList = new ArrayList<> ();
 public class TriviaApp extends JFrame {
 	/* Container for all the Screens. */
 	private JPanel contentPane;
-	private static String category;
+	private String category;
 	private int questionNum = 1;
 	private String question;
 	private static ArrayList<Player> players = new ArrayList<>();
