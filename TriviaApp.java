@@ -128,6 +128,7 @@ public class TriviaApp extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		initializeQuestions();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
