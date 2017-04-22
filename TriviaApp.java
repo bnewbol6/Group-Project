@@ -64,6 +64,7 @@ public class TriviaApp extends JFrame {
 	private JPanel contentPane;
 	private String category;
 	private int questionNum = 1;
+	private int score; 
 	private String question;
 	private static ArrayList<Player> players = new ArrayList<>();
 	
