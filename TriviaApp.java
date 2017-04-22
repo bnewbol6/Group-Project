@@ -139,6 +139,7 @@ public class TriviaApp extends JFrame {
 				}
 			}
 		});
+		System.out.println(moviesList);
 	}
 
 	/**
