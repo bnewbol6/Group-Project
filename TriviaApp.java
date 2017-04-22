@@ -777,7 +777,7 @@ public class TriviaApp extends JFrame {
 	 * METHOD void initializeQuestions
 	 */
 	public static void initializeQuestions() {
-		try (Scanner reader = new Scanner(TestingQuestions.class.getResourceAsStream("questions.csv"))) {
+		try (Scanner reader = new Scanner(Questions.class.getResourceAsStream("questions.csv"))) {
 			while (reader.hasNext()) {
 				Questions question = getQuestion(reader.nextLine());
 				if (question != null) {
