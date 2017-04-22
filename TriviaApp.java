@@ -6,7 +6,7 @@
 /**
  * 
  */
-package main;
+package triviagame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
