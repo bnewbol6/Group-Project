@@ -751,5 +751,45 @@ public class TriviaApp extends JFrame {
 		createLblHighScoresTitle();
 		createMenuBar();
 	}
+/**
+* METHOD void initializeQuestions
+*/
+public static void initializeQuestions() {
+try(Scanner reader = new Scanner(TestingQuestions.class.getResourceAsStream("questions.csv"))){
+while (reader.hasNext()) {
+Questions question = getQuestion(reader.nextLine());
+if (question != null){
+questionList.add(question);
+}
+}
+}
+for (Questions q : questionList) {
+if (q.getcategory().equals("Sports")){
+sportsList.add(q);
+} else if (q.getcategory().equals("Movies")){
+moviesList.add(q);
+} else if (q.getcategory().equals("Video Games")) {
+videoGamesList.add(q);
+} else
+tvList.add(q);
+}
+}
 
+
+/**		
+ * METHOD Questions getQuestion		
+ * @param line		
+ * @return		
+ */		
+private static Questions getQuestion(String nextLine) {		
+			
+	String[] line = nextLine.split(",");		
+	Questions question = null;		
+	try {		
+		question = new Questions(line[0], line[1], line[2], line[3], line[4], line[5] );		
+	} catch (NumberFormatException | IndexOutOfBoundsException e) {		
+		System.err.println(nextLine + ".. cound not be read in as a Question.");		
+	}		
+	return question;		
+}
 }
