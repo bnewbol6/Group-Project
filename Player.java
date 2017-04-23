@@ -1,13 +1,9 @@
 package triviaGame;
 
-import java.util.Scanner;
-
-import javax.swing.JTextField;
-public class Player{
+public class Player implements Comparable<Player>{
 
 private String playerName; // The player number
-private int scores; // Player's points
-private int currentAnswer; // Current chosen answer
+public int scores; // Player's points
 private String category;
 
 
@@ -25,8 +21,6 @@ private String category;
 	public int getScores() {
 		return scores;
 	}
-	
-	
 
 	public String getCategory() {
 		return category;
@@ -34,10 +28,14 @@ private String category;
 
 	@Override
 	public String toString() {
-		return String.format(",Player %s, Score %d, Category %s", getPlayerName(), getScores(), getCategory());
+		return String.format("%s,%d,%s", getPlayerName(), getScores(), getCategory());
 	}
 
-	
+	@Override
+	public int compareTo(Player player) {          
+	    return (this.getScores() < player.getScores() ? 1 : 
+	            (this.getScores() == player.getScores() ? 0 : -1));     
+	  }  
 
 	
 }
