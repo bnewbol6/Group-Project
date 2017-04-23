@@ -1,14 +1,14 @@
 // Assignment: GroupProject
 // Program:    TriviaApp
 // Created:    Apr 11, 2017
-// Author:     Benjamin Newbold
+// Author:     Benjamin Newbold, Gage Omana, Luis Berumen
+
 /**
  * 
  */
 package triviaGame;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
@@ -16,32 +16,35 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -49,18 +52,19 @@ import javax.swing.border.BevelBorder;
 /**
  * CLASS
  * 
- * @author Benjamin Newbold
  *
  */
 public class TriviaApp extends JFrame {
 	/* Container for all the Screens. */
 	private JPanel contentPane;
-	private String category;
+	//need to set to a non null value to avoid exception
+	private String category = "anything we want here";
+	private String question;
+	private String questionPart;
 	private int questionNum = 1;
 	private int score;
-	private String question;
+	// private static int score;
 	private static ArrayList<Player> players = new ArrayList<>();
-	private String questionPart;
 
 	/* Start Screen Fields. */
 	private JPanel pnlStartNorth;
@@ -87,7 +91,7 @@ public class TriviaApp extends JFrame {
 	private JPanel pnlQuestionCenter;
 	private JLabel lblQuestionTitle;
 	private JLabel lblQuestionQuestion;
-	private JButton btnAnswer1;
+	private JButton btnAnswer1 = null;
 	private JButton btnAnswer2;
 	private JButton btnAnswer3;
 	private JButton btnAnswer4;
@@ -117,9 +121,8 @@ public class TriviaApp extends JFrame {
 	private JPanel pnlHighScoresSouth;
 	private JButton btnHighScoresPlay;
 	private JButton btnHighScoresExit;
-	//private static int score;
 
-	// array lists
+	/* Category Array Lists */
 	static List<Questions> questionList = new LinkedList<>();
 	static List<Questions> sportsList = new ArrayList<>();
 	static List<Questions> moviesList = new ArrayList<>();
@@ -130,18 +133,17 @@ public class TriviaApp extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		
 		initializeQuestions();
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+
 				try {
 					TriviaApp frame = new TriviaApp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
-		System.out.println(moviesList);
+
 	}
 
 	/**
@@ -150,7 +152,7 @@ public class TriviaApp extends JFrame {
 	public TriviaApp() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 600);
+		setBounds(10, 10, 1900, 1000);
 		createContentPane();
 	}
 
@@ -163,8 +165,8 @@ public class TriviaApp extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		// addStartScreen();
-		// addCategoriesScreen();
+		 addStartScreen();
+		 addCategoriesScreen();
 		addQuestionsScreen();
 		addScoresScreen();
 		addHighScoresScreen();
@@ -415,7 +417,7 @@ public class TriviaApp extends JFrame {
 		question = "Q" + questionNum + ": " + getQuestionPart();
 		lblQuestionQuestion = new JLabel(question);
 		lblQuestionQuestion.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		lblQuestionQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuestionQuestion.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlQuestionNorth.add(lblQuestionQuestion);
 	}
 
@@ -429,7 +431,39 @@ public class TriviaApp extends JFrame {
 				: category.equals("Movies") ? moviesList.get(questionNum - 1).getQuestion()
 						: category.equals("Sports") ? sportsList.get(questionNum - 1).getQuestion()
 								: videoGamesList.get(questionNum - 1).getQuestion();
+						
 	}
+	
+	public String getAnswersofTheQuestion()
+	{
+		return category.equals("TV") ? tvList.get(questionNum - 1).getAnswer()
+				: category.equals("Movies") ? moviesList.get(questionNum - 1).getAnswer()
+						: category.equals("Sports") ? sportsList.get(questionNum - 1).getAnswer()
+								: videoGamesList.get(questionNum - 1).getAnswer();
+	}
+	public String getFalse1()
+	{
+		return category.equals("TV") ? tvList.get(questionNum - 1).getWrong1()
+				: category.equals("Movies") ? moviesList.get(questionNum - 1).getWrong1()
+						: category.equals("Sports") ? sportsList.get(questionNum - 1).getWrong1()
+								: videoGamesList.get(questionNum - 1).getWrong1();
+	}
+	public String getFalse2()
+	{
+		return category.equals("TV") ? tvList.get(questionNum - 1).getWrong2()
+				: category.equals("Movies") ? moviesList.get(questionNum - 1).getWrong2()
+						: category.equals("Sports") ? sportsList.get(questionNum - 1).getWrong2()
+								: videoGamesList.get(questionNum - 1).getWrong2();
+	}
+	
+	public String getFalse3()
+	{
+		return category.equals("TV") ? tvList.get(questionNum - 1).getWrong3()
+				: category.equals("Movies") ? moviesList.get(questionNum - 1).getWrong3()
+						: category.equals("Sports") ? sportsList.get(questionNum - 1).getWrong3()
+								: videoGamesList.get(questionNum - 1).getWrong3();
+	}
+	
 
 	/**
 	 * METHOD void createPnlQuestionCenter
@@ -438,10 +472,10 @@ public class TriviaApp extends JFrame {
 		pnlQuestionCenter = new JPanel();
 		pnlQuestionCenter.setBorder(new EmptyBorder(50, 10, 50, 10));
 		pnlQuestionCenter.setLayout(new GridLayout(2, 2, 20, 20));
-		createBtnQuestionAnswer(btnAnswer1, "Answer 1");
-		createBtnQuestionAnswer(btnAnswer2, "Answer 2");
-		createBtnQuestionAnswer(btnAnswer3, "Answer 3");
-		createBtnQuestionAnswer(btnAnswer4, "Answer 4");
+		createBtnQuestionAnswer(btnAnswer1, getAnswersofTheQuestion());
+		createBtnQuestionAnswer(btnAnswer2, getFalse1());
+		createBtnQuestionAnswer(btnAnswer3, getFalse2());
+		createBtnQuestionAnswer(btnAnswer4, getFalse3());
 	}
 
 	/**
@@ -451,10 +485,19 @@ public class TriviaApp extends JFrame {
 		buttonName = new JButton(answer);
 		buttonName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (questionNum < 10) {
 					questionNum++;
-					question = "Q" + questionNum + ": How many cups of sugar does it take to get to the moon?";
+					question = "Q" + questionNum + ": " + getQuestionPart();
 					lblQuestionQuestion.setText(question);
+					//Here is where we need to update the answer boxes
+					contentPane.removeAll();
+					addQuestionsScreen();
+					revalidate();
+					repaint();
+				
+					
+
 				} else {
 					questionNum = 1;
 					contentPane.removeAll();
@@ -777,7 +820,7 @@ public class TriviaApp extends JFrame {
 	 * METHOD void initializeQuestions
 	 */
 	public static void initializeQuestions() {
-		try (Scanner reader = new Scanner(Questions.class.getResourceAsStream("questions.csv"))) {
+		try (Scanner reader = new Scanner(Questions.class.getResourceAsStream("Questions.csv"))) {
 			while (reader.hasNext()) {
 				Questions question = getQuestion(reader.nextLine());
 				if (question != null) {
@@ -810,7 +853,7 @@ public class TriviaApp extends JFrame {
 		try {
 			question = new Questions(line[0], line[1], line[2], line[3], line[4], line[5]);
 		} catch (NumberFormatException | IndexOutOfBoundsException e) {
-			System.err.println(nextLine + ".. cound not be read in as a Question.");
+			System.err.println(nextLine + "... cound not be read in as a Question.");
 		}
 		return question;
 	}
