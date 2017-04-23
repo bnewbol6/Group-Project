@@ -11,11 +11,8 @@ package triviaGame;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,13 +20,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -45,8 +38,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 
 /**
@@ -532,8 +523,13 @@ public class TriviaApp extends JFrame {
 		btnScoresExit.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnScoresExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (playerNametxt.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please Input Player Name", "Player Name Empty",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
 				createPlayerAndAppendToFile();
 				System.exit(0);
+				}
 			}
 
 		});
