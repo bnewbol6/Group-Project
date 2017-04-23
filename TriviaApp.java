@@ -455,6 +455,28 @@ public class TriviaApp extends JFrame {
 								: videoGamesList.get(questionNum - 1).getWrong3();
 	}
 	
+	public void randomizeBtnAnswers() {
+		Random rand = new Random();
+		int caseNum = rand.nextInt(3);
+		switch (caseNum) {
+		case 0:
+			getAnswersofTheQuestion();
+			break;
+		case 1:
+			getFalse1();
+			break;
+		case 2:
+			getFalse2();
+			break;
+		case 3:
+			getFalse3();
+			break;
+		default:
+			// do nothing
+			break;
+		}
+	}
+	
 
 	/**
 	 * METHOD void createPnlQuestionCenter
@@ -463,10 +485,11 @@ public class TriviaApp extends JFrame {
 		pnlQuestionCenter = new JPanel();
 		pnlQuestionCenter.setBorder(new EmptyBorder(50, 10, 50, 10));
 		pnlQuestionCenter.setLayout(new GridLayout(2, 2, 20, 20));
-		createBtnQuestionAnswer(btnAnswer1, getAnswersofTheQuestion());
-		createBtnQuestionAnswer(btnAnswer2, getFalse1());
-		createBtnQuestionAnswer(btnAnswer3, getFalse2());
-		createBtnQuestionAnswer(btnAnswer4, getFalse3());
+//		createBtnQuestionAnswer(btnAnswer1, getAnswersofTheQuestion());
+//		createBtnQuestionAnswer(btnAnswer2, getFalse1());
+//		createBtnQuestionAnswer(btnAnswer3, getFalse2());
+//		createBtnQuestionAnswer(btnAnswer4, getFalse3());
+      createBtnQuestionAnswer(btnAnswer1, randomizeBtnAnswers());
 	}
 
 	/**
