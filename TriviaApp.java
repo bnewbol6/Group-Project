@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import java.awt.BorderLayout;
@@ -54,7 +55,6 @@ public class TriviaApp extends JFrame {
 	private String questionPart;
 	private int questionNum = 1;
 	private int score;
-	// private static int score;
 	private static ArrayList<Player> players = new ArrayList<>();
 
 	/* Start Screen Fields. */
@@ -82,7 +82,7 @@ public class TriviaApp extends JFrame {
 	private JPanel pnlQuestionCenter;
 	private JLabel lblQuestionTitle;
 	private JLabel lblQuestionQuestion;
-	private JButton btnAnswer1 = null;
+	private JButton btnAnswer1; //= null;
 	private JButton btnAnswer2;
 	private JButton btnAnswer3;
 	private JButton btnAnswer4;
@@ -456,25 +456,7 @@ public class TriviaApp extends JFrame {
 	}
 	
 	public void randomizeBtnAnswers() {
-		Random rand = new Random();
-		int caseNum = rand.nextInt(3);
-		switch (caseNum) {
-		case 0:
-			getAnswersofTheQuestion();
-			break;
-		case 1:
-			getFalse1();
-			break;
-		case 2:
-			getFalse2();
-			break;
-		case 3:
-			getFalse3();
-			break;
-		default:
-			// do nothing
-			break;
-		}
+		
 	}
 	
 
@@ -485,11 +467,40 @@ public class TriviaApp extends JFrame {
 		pnlQuestionCenter = new JPanel();
 		pnlQuestionCenter.setBorder(new EmptyBorder(50, 10, 50, 10));
 		pnlQuestionCenter.setLayout(new GridLayout(2, 2, 20, 20));
-//		createBtnQuestionAnswer(btnAnswer1, getAnswersofTheQuestion());
-//		createBtnQuestionAnswer(btnAnswer2, getFalse1());
-//		createBtnQuestionAnswer(btnAnswer3, getFalse2());
-//		createBtnQuestionAnswer(btnAnswer4, getFalse3());
-      createBtnQuestionAnswer(btnAnswer1, randomizeBtnAnswers());
+
+		Random rand = new Random();
+		int caseNum = rand.nextInt(3);
+		
+		switch (caseNum) {
+		case 0:
+			createBtnQuestionAnswer(btnAnswer1, getAnswersofTheQuestion());
+			createBtnQuestionAnswer(btnAnswer2, getFalse1());
+			createBtnQuestionAnswer(btnAnswer3, getFalse2());
+			createBtnQuestionAnswer(btnAnswer4, getFalse3());
+			break;
+		case 1:
+			createBtnQuestionAnswer(btnAnswer1, getFalse3());
+			createBtnQuestionAnswer(btnAnswer2, getFalse1());
+			createBtnQuestionAnswer(btnAnswer3, getFalse2());
+			createBtnQuestionAnswer(btnAnswer4, getAnswersofTheQuestion());
+			break;
+		case 2:
+			createBtnQuestionAnswer(btnAnswer1, getFalse2());
+			createBtnQuestionAnswer(btnAnswer3, getFalse3());
+			createBtnQuestionAnswer(btnAnswer2, getAnswersofTheQuestion());
+			createBtnQuestionAnswer(btnAnswer4, getFalse1());
+			break;
+		case 3:
+			createBtnQuestionAnswer(btnAnswer3, getFalse1());
+			createBtnQuestionAnswer(btnAnswer2, getAnswersofTheQuestion());
+			createBtnQuestionAnswer(btnAnswer4, getFalse2());
+			createBtnQuestionAnswer(btnAnswer1, getFalse3());
+			break;
+		default:
+			// do nothing
+			break;
+		}
+        
 	}
 
 	/**
@@ -848,11 +859,11 @@ public class TriviaApp extends JFrame {
 			}
 		}
 		for (Questions q : questionList) {
-			if (q.getcategory().equals("Sports")) {
+			if (q.getCategory().equals("Sports")) {
 				sportsList.add(q);
-			} else if (q.getcategory().equals("Movies")) {
+			} else if (q.getCategory().equals("Movies")) {
 				moviesList.add(q);
-			} else if (q.getcategory().equals("Video Games")) {
+			} else if (q.getCategory().equals("Video Games")) {
 				videoGamesList.add(q);
 			} else
 				tvList.add(q);
